@@ -11,7 +11,7 @@ urlpatterns = [
     path("", include("apps.authentication.urls")), # Auth routes - login / register
 
     # ADD NEW Routes HERE
-    path('strategy/', include(("apps.strategy.urls", "strategy"), namespace="strategy")), # A team pursuit strategy tool
+    path('strategy/', include("apps.strategy.urls")), # A team pursuit strategy tool
 
     # Leave `Home.Urls` as last the last line
     path("", include("apps.home.urls"))
