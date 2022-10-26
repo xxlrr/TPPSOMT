@@ -11,7 +11,7 @@ app_name = 'strategy'
 urlpatterns = [
 
     path('constant/', views.constant, name='constant'),
-    # path('rider/', views.rider, name='rider'),
+    path('rider/', views.rider, name='rider'),
 
     # # Matches any html file
     # re_path(r'^.*\.*', views.pages, name='pages'),

@@ -1,0 +1,135 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Contact US {% endblock %} 
+
+{% block body_class %} contact-us {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  {% include 'includes/navigation-light.html' %} 
+   
+  <section class="py-lg-5">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card box-shadow-xl overflow-hidden mb-5">
+            <div class="row">
+              <!-- <div class="col-lg-5 position-relative bg-cover px-0" style="background-image: url('{{ ASSETS_ROOT }}/img/examples/blog2.jpg')" loading="lazy"> -->
+              <div class="col-lg-5 position-relative bg-cover px-0" style="background-image: url('{{ ASSETS_ROOT }}/img/examples/blog2.jpg')" loading="lazy">
+                <div class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center">
+                  <div class="mask bg-gradient-dark opacity-8"></div>
+                  <div class="p-5 ps-sm-8 position-relative text-start my-auto z-index-2">
+                  <form id="reader-form" method="post" autocomplete="off">
+                    <div class="row">
+                      <h3 class="text-white">Riders</h3>
+                      <p class="text-white opacity-8 mb-4">Please select or add at least 4 riders to fill up the form.</p>
+                      <div class="input-group input-group-static mb-4">
+                        <select class="form-control text-white" id="rider1" name="rider1">
+                          <option class="text-dark" selected>&lt;new rider&gt;</option>
+                          <option class="text-dark" value="id 1">aaa</option>
+                          <option class="text-dark" value="id 2">bbb</option>
+                        </select>
+                      </div>
+                      <div class="input-group input-group-static mb-4">
+                        <select class="form-control text-white" id="rider2" name="rider2">
+                          <option class="text-dark" selected>&lt;new rider&gt;</option>
+                          <option class="text-dark" value="id 1">aaa</option>
+                          <option class="text-dark" value="id 2">bbb</option>
+                        </select>
+                      </div>
+                      <div class="input-group input-group-static mb-4">
+                        <select class="form-control text-white" id="rider3" name="rider3">
+                          <option class="text-dark" selected>&lt;new rider&gt;</option>
+                          <option class="text-dark" value="id 1">aaa</option>
+                          <option class="text-dark" value="id 2">bbb</option>
+                        </select>
+                      </div>
+                      <div class="input-group input-group-static mb-4">
+                        <select class="form-control text-white" id="rider4" name="rider4">
+                          <option class="text-dark" selected>&lt;new rider&gt;</option>
+                          <option class="text-dark" value="id 1">aaa</option>
+                          <option class="text-dark" value="id 2">bbb</option>
+                        </select>
+                      </div>
+                      <div class="input-group input-group-static mb-4">
+                        <select class="form-control text-white" id="rider5" name="rider5">
+                          <option class="text-dark" selected>&lt;new rider&gt;</option>
+                          <option class="text-dark" value="id 1">aaa</option>
+                          <option class="text-dark" value="id 2">bbb</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="text-begin ms-auto">
+                        <button type="submit" class="btn bg-gradient-primary mt-3 mb-0">Go on</button>
+                      </div>
+                    </div>
+                  </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-7">
+                <form class="p-3" id="contact-form" method="post">
+                  <div class="card-header">
+                    <h3>Detail</h3>
+                    <p>Here are the details of the rider you have chosen or you intend to create as a new one.</p>
+                  </div>
+                  <div class="card-body pt-1">
+                    <div class="row">
+                      <div class="col-md-12 pe-2 mb-3">
+                        <div class="input-group input-group-static mb-4">
+                          <label>Rider Profile</label>
+                          <input type="text" class="form-control" placeholder="eg. Tim">
+                        </div>
+                      </div>
+                      <div class="col-md-12 pe-2 mb-3">
+                        <div class="input-group input-group-static mb-4">
+                          <label>CDA Seated</label>
+                          <input type="text" class="form-control" placeholder="0.000">
+                        </div>
+                      </div>
+                      <div class="col-md-12 pe-2 mb-3">
+                        <div class="input-group input-group-static mb-4">
+                          <label>Seat Height from groud</label>
+                          <input type="text" class="form-control" placeholder="0.00">
+                          <span class="input-group-text text-xs text-muted">m</span>
+                        </div>
+                      </div>
+                      <div class="col-md-12 pe-2 mb-3">
+                        <div class="input-group input-group-static mb-4">
+                          <label>Turn 1 power</label>
+                          <input type="text" class="form-control" placeholder="0.00">
+                          <!-- <span class="input-group-text text-xs text-muted"></span> -->
+                        </div>
+                      </div>
+                      <div class="col-md-12 pe-2 mb-3">
+                        <div class="input-group input-group-static mb-4">
+                          <label>Turn 2 power</label>
+                          <input type="text" class="form-control" placeholder="0.00">
+                          <!-- <span class="input-group-text text-xs text-muted"></span> -->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 text-end ms-auto">
+                        <button type="submit" class="btn bg-gradient-info mb-0">Svae</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
