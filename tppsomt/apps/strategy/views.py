@@ -12,3 +12,8 @@ def constant(request):
 @login_required(login_url="/login/")
 def rider(request):
     return render(request, "strategy/rider.html", {})
+
+
+@login_required(login_url="/login/")
+def strategy(request):
+    return render(request, "strategy/strategy.html", {})

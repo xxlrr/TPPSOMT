@@ -1,0 +1,134 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Contact US {% endblock %} 
+
+{% block body_class %} contact-us {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  {% include 'includes/navigation-light.html' %} 
+
+  <section>
+    <div class="page-header min-vh-100">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 ms-lg-auto col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+            <div class="card d-flex blur justify-content-center shadow-lg my-sm-0 my-sm-6 mt-8 mb-5">
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                <div class="dropdown">
+                  <button class="btn bg-gradient-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    New Strategy
+                  </button>
+                  <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
+                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
+                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="card-body">
+                <form id="contact-form" method="post" autocomplete="off">
+                  <div class="card-body p-0 my-3">
+                    <div class="row">
+                      <div class="col-md-2 pt-3 px-4 m-0 blur shadow-sm border-radius-lg bg-transparent">
+                        <div id="rider-list" class="input-group input-group-static mb-4" title="hi, you can drag a rider to reorder 🙂">
+                          <label>Order <i class="fa fa-chevron-circle-up fa-spin fa-sm" aria-hidden="true"></i></label>
+                          <a class="form-control" href="#" draggable="true"><i class="fa fa-arrows-v fa-sm" aria-hidden="true"></i> rider 1</a>
+                          <a class="form-control" href="#" draggable="true"><i class="fa fa-arrows-v fa-sm" aria-hidden="true"></i> rider 2</a>
+                          <a class="form-control" href="#" draggable="true"><i class="fa fa-arrows-v fa-sm" aria-hidden="true"></i> rider 3</a>
+                          <a class="form-control" href="#" draggable="true"><i class="fa fa-arrows-v fa-sm" aria-hidden="true"></i> rider 4</a>
+                          <a class="form-control" href="#" draggable="true"><i class="fa fa-arrows-v fa-sm" aria-hidden="true"></i> rider 5</a>
+                        </div>
+                      </div>
+                      <div class="col-md-2 pt-3 px-4 m-0">
+                          <div class="input-group input-group-static mb-4">
+                            <label>Turn 1 </label>
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                          </div>
+                      </div>
+                      <div class="col-md-2 pt-3 px-4 m-0">
+                          <div class="input-group input-group-static mb-4">
+                            <label>Turn 2</label>
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                          </div>
+                      </div>
+                      <div class="col-md-2 pt-3 px-4 m-0">
+                          <div class="input-group input-group-static mb-4">
+                            <label>Turn 3</label>
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                          </div>
+                      </div>
+                      <div class="col-md-2 pt-3 px-4 m-0">
+                          <div class="input-group input-group-static mb-4">
+                            <label>Turn 4<label>
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                          </div>
+                      </div>
+                      <div class="col-md-2 pt-3 px-4 m-0">
+                          <div class="input-group input-group-static mb-4">
+                            <label>Turn 5</label>
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                            <input id="df" name="df" type="text" class="form-control" placeholder="0.00">
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row d-flex">
+                      <div class="col-md-3 ps-md-2">
+                        <p class="mt-4 mb-0">
+                          Checksum 16 laps?&nbsp;<b id="laps" class="text-danger">0.00</b>&nbsp;laps
+                        </p>
+                      </div>
+                      <!-- placeholder -->
+                      <div class="col-md-4 ps-md-2"></div>
+                      <div class="col-md-2 ps-md-2">
+                        <div class="input-group input-group-outline mt-3 mb-0">
+                          <label class="form-label">strategy name</label>
+                          <input id="name" name="name" type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-3 ps-md-2">
+                        <button type="submit" class="btn bg-gradient-primary mt-3 mb-0">Save</button>
+                        <button type="cancel" class="btn bg-gradient-light mt-3 mb-0">Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="{{ ASSETS_ROOT }}/js/plugins/sortable.min.js" type="text/javascript"></script>
+<script>
+  new Sortable(document.getElementById("rider-list"), {handle: "a"})
+</script>
+{% endblock javascripts %}
