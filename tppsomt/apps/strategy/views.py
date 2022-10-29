@@ -17,3 +17,8 @@ def rider(request):
 @login_required(login_url="/login/")
 def strategy(request):
     return render(request, "strategy/strategy.html", {})
+
+
+@login_required(login_url="/login/")
+def result(request):
+    return render(request, "strategy/result.html", {})

@@ -13,5 +13,6 @@ urlpatterns = [
     path('constant/', views.constant, name='constant'),
     path('rider/', views.rider, name='rider'),
     path('strategy/', views.strategy, name='strategy'),
+    path('result/', views.result, name='result'),
     
 ]
