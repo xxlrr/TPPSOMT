@@ -35,3 +35,20 @@ class Constant(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class Rider(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.CharField("Rider Profile", max_length=16)
+    cda_seated = models.CharField("CDA Seated", max_length=16, default="0.000")
+    seat_height = models.CharField("Seat Height from groud", max_length=16, default="0.00")
+    trun1_power = models.CharField("Turn 1 power", max_length=16, default="0.00")
+    trun2_power = models.CharField("Turn 2 power", max_length=16, default="0.00")
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["owner", "profile"]),
+        ]
+    
+    def __str__(self):
+        return self.profile

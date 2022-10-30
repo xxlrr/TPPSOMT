@@ -17,6 +17,11 @@ urlpatterns = [
     path('constant/sel/', views.sel_constant, name='constant_sel'),
 
     path('rider/', views.rider, name='rider'),
+    path('rider/list/', views.list_rider, name='rider_list'),
+    path('rider/save/', views.save_rider, name='rider_save'),
+    path('rider/del/', views.del_rider, name='rider_del'),
+    path('rider/sel/', views.sel_rider, name='rider_sel'),
+
     path('strategy/', views.strategy, name='strategy'),
     path('result/', views.result, name='result'),
 

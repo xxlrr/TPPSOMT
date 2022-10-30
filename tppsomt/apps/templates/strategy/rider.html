@@ -17,49 +17,39 @@
         <div class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center">
           <div class="mask bg-gradient-dark opacity-8"></div>
           <div class="p-5 ps-sm-8 position-relative text-start my-auto z-index-2">
-          <form id="reader-form" method="post" autocomplete="off">
+          <form id="rider-form" autocomplete="off">
             <div class="row">
               <h3 class="text-white">Riders</h3>
               <p class="text-white opacity-8 mb-4">Please select or add at least 4 riders to fill up the form.</p>
               <div class="input-group input-group-static mb-4">
-                <select class="form-control text-white" id="rider1" name="rider1">
-                  <option class="text-dark" selected>&lt;new rider&gt;</option>
-                  <option class="text-dark" value="id 1">aaa</option>
-                  <option class="text-dark" value="id 2">bbb</option>
+                <select class="form-control text-white option-white" id="rider1" name="rider1">
+                  <option value="create" selected>&lt;new rider&gt;</option>
                 </select>
               </div>
               <div class="input-group input-group-static mb-4">
-                <select class="form-control text-white" id="rider2" name="rider2">
-                  <option class="text-dark" selected>&lt;new rider&gt;</option>
-                  <option class="text-dark" value="id 1">aaa</option>
-                  <option class="text-dark" value="id 2">bbb</option>
+                <select class="form-control text-white option-white" id="rider2" name="rider2">
+                  <option value="create" selected>&lt;new rider&gt;</option>
                 </select>
               </div>
               <div class="input-group input-group-static mb-4">
-                <select class="form-control text-white" id="rider3" name="rider3">
-                  <option class="text-dark" selected>&lt;new rider&gt;</option>
-                  <option class="text-dark" value="id 1">aaa</option>
-                  <option class="text-dark" value="id 2">bbb</option>
+                <select class="form-control text-white option-white" id="rider3" name="rider3">
+                  <option value="create" selected>&lt;new rider&gt;</option>
                 </select>
               </div>
               <div class="input-group input-group-static mb-4">
-                <select class="form-control text-white" id="rider4" name="rider4">
-                  <option class="text-dark" selected>&lt;new rider&gt;</option>
-                  <option class="text-dark" value="id 1">aaa</option>
-                  <option class="text-dark" value="id 2">bbb</option>
+                <select class="form-control text-white option-white" id="rider4" name="rider4">
+                  <option value="create" selected>&lt;new rider&gt;</option>
                 </select>
               </div>
               <div class="input-group input-group-static mb-4">
-                <select class="form-control text-white" id="rider5" name="rider5">
-                  <option class="text-dark" selected>&lt;new rider&gt;</option>
-                  <option class="text-dark" value="id 1">aaa</option>
-                  <option class="text-dark" value="id 2">bbb</option>
+                <select class="form-control text-white option-white" id="rider5" name="rider5">
+                  <option value="create" selected>&lt;new rider&gt;</option>
                 </select>
               </div>
             </div>
             <div class="row">
               <div class="text-begin ms-auto">
-                <button type="submit" class="btn bg-gradient-primary mt-3 mb-0">Go on</button>
+                <button id="continue" type="button" class="btn bg-gradient-primary mt-3 mb-0">Go on</button>
               </div>
             </div>
           </form>
@@ -67,48 +57,49 @@
         </div>
       </div>
       <div class="col-lg-7">
-        <form class="p-3" id="contact-form" method="post">
+        <form class="p-3" id="detail-form">
           <div class="card-header">
             <h3>Details</h3>
             <p>Here are the details of the rider you have chosen or you intend to create as a new one.</p>
           </div>
           <div class="card-body pt-1">
             <div class="row">
+              <input id="id" name="id" type="hidden" class="form-control">
               <div class="col-md-12 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>Rider Profile</label>
-                  <input type="text" class="form-control" placeholder="eg. Tim">
+                  <input id="profile" name="profile" type="text" class="form-control" placeholder="eg. Tim">
                 </div>
               </div>
               <div class="col-md-12 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>CDA Seated</label>
-                  <input type="text" class="form-control" placeholder="0.000">
+                  <input id="cda_seated" name="cda_seated" type="text" class="form-control" placeholder="0.000">
                 </div>
               </div>
               <div class="col-md-12 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>Seat Height from groud</label>
-                  <input type="text" class="form-control" placeholder="0.00">
+                  <input id="seat_height" name="seat_height" type="text" class="form-control" placeholder="0.00">
                   <span class="input-group-text text-xs text-muted">m</span>
                 </div>
               </div>
               <div class="col-md-6 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>Turn 1 power</label>
-                  <input type="text" class="form-control" placeholder="0.00">
+                  <input id="trun1_power" name="trun1_power" type="text" class="form-control" placeholder="0.00">
                 </div>
               </div>
               <div class="col-md-6 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>Turn 2 power</label>
-                  <input type="text" class="form-control" placeholder="0.00">
+                  <input id="trun2_power" name="trun2_power" type="text" class="form-control" placeholder="0.00">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 text-end ms-auto">
-                <button type="submit" class="btn bg-gradient-info mb-0">Svae</button>
+                <button id="save" type="button" class="btn bg-gradient-info mb-0">Svae</button>
               </div>
             </div>
           </div>
@@ -121,4 +112,121 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+
+<!-- Some functions -->
+<script>
+
+  // reload a contant list to a select element (el).
+  function load_rider_list(parent){
+    $.ajax({
+      type: 'post',
+      url: "{% url 'strategy:rider_list' %}",
+      dataType : 'json',
+      data: {
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (response) {
+        var els = parent.getElementsByTagName("select");
+        for (var el of els) {
+          var old_val = $(el).val()
+          console.log(old_val);
+          $(el).empty();
+          $(el).append("<option value='create'>&lt;new rider&gt;</option>");
+          if (response.riders.length > 0)
+          {
+            $(el).append("<option disabled>──────────</option>")
+            response.riders.forEach(rider => {
+              $(el).append("<option value=" + rider.id + ">" + rider.profile + "</option>");
+            });
+          }
+          $(el).val(old_val);
+        }
+      },
+      error: function (response) {
+        alert("Failed to update rider list, please refresh the page or try again later!");
+      }
+    });
+  }
+
+  // fill the rider form
+  function fill_rider_form(el, id)
+  {
+    $.ajax({
+      type: 'post',
+      url: "{% url 'strategy:rider_sel' %}",
+      dataType: 'json',
+      data: {
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        id: id
+      },
+      success: (detail) => {
+        for (var key in detail) {
+          $("#"+key).val(String(detail[key]));
+        }
+      },
+      error: () => {
+        alert("Sorry, load failed. The page will reload!");
+        window.location.reload();
+      }
+    });
+  }
+
+  // save the rider form
+  function save_rider(form)
+  {
+    const data = Object.fromEntries(new FormData(form).entries());
+    data['csrfmiddlewaretoken'] = '{{ csrf_token }}'
+    $.ajax({
+      type: 'post',
+      url: "{% url 'strategy:rider_save' %}",
+      dataType: 'json',
+      data: data,
+      success: () => {
+        load_rider_list(document.getElementById("rider-form"));
+        alert("The rider have been saved successfully!");
+        form.reset();
+      },
+      error: () => {alert("Failed to save the rider, please try again later!")}
+    });
+  }
+</script>
+
+<!-- listen event -->
+<script>
+
+  $("continue").click(function(){
+    $("#rider-form select").each((_, e) => {
+      if (e.value !== 'create') {
+        sessionStorage[e.name] = e.value;
+      } else {
+        delete sessionStorage[e.name];
+      }
+    });
+  })
+
+  $("#save").click(function(){
+    save_rider(document.getElementById("detail-form"));
+  });
+
+  $("#rider-form").on('change', 'select', (event)=>{
+    var self = event.target;
+    var rider_form = document.getElementById("detail-form");
+    if(self.value == "create") {
+      rider_form.reset();
+    } else {
+      $("#rider-form select")
+        .filter((_, e)=>{return e != self && e.value == self.value})
+        .each((_, e) => {$(e).val("create")});
+      fill_rider_form(rider_form, self.value);
+    }
+  })
+
+</script>
+
+<!-- Some action when the page loads -->
+<script>
+  load_rider_list(document.getElementById("rider-form"));
+</script>
+
+{% endblock javascripts %}
