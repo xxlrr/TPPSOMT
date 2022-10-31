@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from django.contrib.auth.decorators import login_required
-from .models import Constant, Rider, Strategy
+from .models import Constant, Rider, Strategy, Result
 
 
 @login_required(login_url="/login/")
@@ -102,13 +102,21 @@ def strategy(request, id=None):
                 foreign[k] = (M.objects.get(pk=foreign_id) if foreign_id else None)
             if id:
                 Strategy.objects.filter(pk=id, owner=request.user).update(**form, **foreign)
+                strategy = Strategy.objects.get(pk=id)
             else:
-                Strategy.objects.create(owner=request.user, **form, **foreign)
+                strategy = Strategy.objects.create(owner=request.user, **form, **foreign)
+            strategy.calculate()
+            return redirect(reverse('strategy:result', kwargs={'result_id':strategy.result.pk}))
         elif action == 'delete' and id:
             Strategy.objects.filter(pk=id, owner=request.user).delete()
         return redirect(reverse('strategy:strategy'))
 
 
 @login_required(login_url="/login/")
-def result(request):
-    return render(request, "strategy/result.html", {})
+def result(request, result_id):
+    result = Result.objects.get(pk=result_id)
+    context = {
+        "total_time": result.total_time,
+        "time_chart": result.time_chart,
+    }
+    return render(request, "strategy/result.html", context=context)

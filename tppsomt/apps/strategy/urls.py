@@ -4,7 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from django.urls import path
-from apps.strategy import views
+from . import views
 
 
 app_name = 'strategy'
@@ -25,6 +25,6 @@ urlpatterns = [
     path('strategy/', views.strategy, name='strategy'),
     path('strategy/<int:id>/', views.strategy, name='strategy'),
     
-    path('result/', views.result, name='result'),
+    path('result/<int:result_id>/', views.result, name='result'),
 
 ]

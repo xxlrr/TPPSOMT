@@ -1,3 +1,4 @@
+from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -103,3 +104,18 @@ class Strategy(models.Model):
     
     def __str__(self):
         return self.name
+
+    def calculate(self):
+        # some calculate ...
+        # save the result to a model
+        # return the result model
+        return Result.objects.get(strategy__pk=self.pk)
+
+
+class Result(models.Model):
+    strategy = models.OneToOneField(Strategy, on_delete=models.DO_NOTHING)
+    total_time = models.CharField(max_length=16, default="00:00.00")
+    time_chart = models.JSONField()
+
+    def __str__(self):
+        return f"{self.strategy.name}#{str(self.id)}"
