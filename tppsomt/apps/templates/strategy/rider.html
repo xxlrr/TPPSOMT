@@ -17,90 +17,66 @@
         <div class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center">
           <div class="mask bg-gradient-dark opacity-8"></div>
           <div class="p-5 ps-sm-8 position-relative text-start my-auto z-index-2">
-          <form id="rider-form" autocomplete="off">
             <div class="row">
               <h3 class="text-white">Riders</h3>
-              <p class="text-white opacity-8 mb-4">Please select or add at least 4 riders to fill up the form.</p>
+              <p class="text-white opacity-8 mb-4">Please  select a rider or create a new.</p>
               <div class="input-group input-group-static mb-4">
-                <select class="form-control text-white option-white" id="rider1" name="rider1">
+                <select class="form-control text-white option-white" id="rider-list">
                   <option value="create" selected>&lt;new rider&gt;</option>
-                </select>
-              </div>
-              <div class="input-group input-group-static mb-4">
-                <select class="form-control text-white option-white" id="rider2" name="rider2">
-                  <option value="create" selected>&lt;new rider&gt;</option>
-                </select>
-              </div>
-              <div class="input-group input-group-static mb-4">
-                <select class="form-control text-white option-white" id="rider3" name="rider3">
-                  <option value="create" selected>&lt;new rider&gt;</option>
-                </select>
-              </div>
-              <div class="input-group input-group-static mb-4">
-                <select class="form-control text-white option-white" id="rider4" name="rider4">
-                  <option value="create" selected>&lt;new rider&gt;</option>
-                </select>
-              </div>
-              <div class="input-group input-group-static mb-4">
-                <select class="form-control text-white option-white" id="rider5" name="rider5">
-                  <option value="create" selected>&lt;new rider&gt;</option>
+                  {% for r in rider_list %}
+                    <option value="{{ r.id }}" {% if r.id == rider.id %}" selected "{% endif %}>{{ r.profile }}</option>
+                  {% endfor %}
                 </select>
               </div>
             </div>
-            <div class="row">
-              <div class="text-begin ms-auto">
-                <button id="continue" type="button" class="btn bg-gradient-primary mt-3 mb-0">Go on</button>
-              </div>
-            </div>
-          </form>
           </div>
         </div>
       </div>
       <div class="col-lg-7">
-        <form class="p-3" id="detail-form">
+        <form class="p-3" method="post" id="detail-form">
+          {% csrf_token %}
           <div class="card-header">
             <h3>Details</h3>
             <p>Here are the details of the rider you have chosen or you intend to create as a new one.</p>
           </div>
           <div class="card-body pt-1">
             <div class="row">
-              <input id="id" name="id" type="hidden" class="form-control">
               <div class="col-md-12 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>Rider Profile</label>
-                  <input id="profile" name="profile" type="text" class="form-control" placeholder="eg. Tim">
+                  <input id="profile" name="profile" value="{{ rider.profile|default:'' }}" type="text" class="form-control" placeholder="eg. Tim">
                 </div>
               </div>
               <div class="col-md-12 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>CDA Seated</label>
-                  <input id="cda_seated" name="cda_seated" type="text" class="form-control" placeholder="0.000">
+                  <input id="cda_seated" name="cda_seated" value="{{ rider.cda_seated|default:'' }}" type="text" class="form-control" placeholder="0.000">
                 </div>
               </div>
               <div class="col-md-12 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>Seat Height from groud</label>
-                  <input id="seat_height" name="seat_height" type="text" class="form-control" placeholder="0.00">
+                  <input id="seat_height" name="seat_height" value="{{ rider.seat_height|default:'' }}" type="text" class="form-control" placeholder="0.00">
                   <span class="input-group-text text-xs text-muted">m</span>
                 </div>
               </div>
               <div class="col-md-6 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>Turn 1 power</label>
-                  <input id="trun1_power" name="trun1_power" type="text" class="form-control" placeholder="0.00">
+                  <input id="trun1_power" name="trun1_power" value="{{ rider.trun1_power|default:'' }}" type="text" class="form-control" placeholder="0.00">
                 </div>
               </div>
               <div class="col-md-6 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>Turn 2 power</label>
-                  <input id="trun2_power" name="trun2_power" type="text" class="form-control" placeholder="0.00">
+                  <input id="trun2_power" name="trun2_power" value="{{ rider.trun2.power|default:'' }}" type="text" class="form-control" placeholder="0.00">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 text-end ms-auto">
-                <button id="save" type="button" class="btn bg-gradient-info mb-0">Svae</button>
-                <button id="delete" type="button" class="btn bg-gradient-light mb-0">Delete</button>
+                <button id="save" name="action" value="save"  type="submit" class="btn bg-gradient-info mb-0">Svae</button>
+                <button id="delete" name="action" value="delete" type="cancel" class="btn bg-gradient-light mb-0">Delete</button>
               </div>
             </div>
           </div>
@@ -114,140 +90,9 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-
-<!-- Some functions -->
 <script>
-
-  // reload a contant list to a select element (el).
-  function load_rider_list(parent){
-    $.ajax({
-      type: 'post',
-      url: "{% url 'strategy:rider_list' %}",
-      dataType : 'json',
-      data: {
-        csrfmiddlewaretoken: '{{ csrf_token }}'
-      },
-      success: function (response) {
-        var els = parent.getElementsByTagName("select");
-        for (var el of els) {
-          var old_val = $(el).val()
-          $(el).empty();
-          $(el).append("<option value='create'>&lt;new rider&gt;</option>");
-          if (response.riders.length > 0)
-          {
-            $(el).append("<option disabled>──────────</option>")
-            response.riders.forEach(rider => {
-              $(el).append("<option value=" + rider.id
-                + (rider.id == old_val ? " selected" : "")
-                + ">" + rider.profile + "</option>");
-            });
-          }
-        }
-      },
-      error: function (response) {
-        alert("Failed to update rider list, please refresh the page or try again later!");
-      }
-    });
-  }
-
-</script>
-
-<!-- listen event -->
-<script>
-  $("#continue").click(function(){
-    var rider_list = $("#rider-form select");
-
-    var seleted = rider_list.filter((_, e) => {return e.value !== 'create'});
-    if(seleted.length < 4) {
-      alert("Please select at least 4 riders!");
-      return;
-    }
-
-    rider_list.each((_, e) => { sessionStorage[e.name] = (e.value !== 'create' ? e.value : null)});
-  });
-
-  $("#save").click(function(){
-    // save_rider(document.getElementById("detail-form"));
-    var form = document.getElementById("detail-form");
-    var data = Object.fromEntries(new FormData(form).entries());
-
-    data['csrfmiddlewaretoken'] = '{{ csrf_token }}'
-    $.ajax({
-      type: 'post',
-      url: "{% url 'strategy:rider_save' %}",
-      dataType: 'json',
-      data: data,
-      success: () => {
-        load_rider_list(document.getElementById("rider-form"));
-        alert("The rider have been saved successfully!");
-        form.reset();
-        $("#id").val("");
-      },
-      error: () => {alert("Failed to save the rider, please try again later!")}
-    });
-  });
-
-  
-  $("#delete").click(function(){
-    var id = $("#id").val();
-    if (!id){
-      return;
-    }
-
-    $.ajax({
-      type: 'post',
-      url: "{% url 'strategy:rider_del' %}",
-      dataType: 'json',
-      data: {
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        id: id
-      },
-      success: () => {
-        load_rider_list(document.getElementById("rider-form"));
-        document.getElementById("detail-form").reset();
-        $("#id").val("");
-      }
-    });
-  });
-
-  $("#rider-form").on('change', 'select', (event)=>{
-    var self = event.target;
-    var detail_form = document.getElementById("detail-form");
-    if(self.value == "create") {
-      detail_form.reset();
-      $("#id").val("");
-    } else {
-      $("#rider-form select")
-        .filter((_, e)=>{return e != self && e.value == self.value})
-        .each((_, e) => {$(e).val("create")});
-      
-      // fill_detail_form(detail_form, self.value)
-      $.ajax({
-        type: 'post',
-        url: "{% url 'strategy:rider_sel' %}",
-        dataType: 'json',
-        data: {
-          csrfmiddlewaretoken: '{{ csrf_token }}',
-          id: self.value
-        },
-        success: (detail) => {
-          for (var key in detail) {
-            $("#"+key).val(String(detail[key]));
-          }
-        },
-        error: () => {
-          alert("Sorry, load failed. The page will reload!");
-          window.location.reload();
-        }
-      });
-    }
+  $("#rider-list").change(function(){
+    window.location = "{% url 'strategy:rider' %}" + (this.value ? this.value + "/" : "")
   })
-
 </script>
-
-<!-- Some action when the page loads -->
-<script>
-  load_rider_list(document.getElementById("rider-form"));
-</script>
-
 {% endblock javascripts %}

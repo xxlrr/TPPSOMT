@@ -11,20 +11,11 @@ app_name = 'strategy'
 urlpatterns = [
 
     path('constant/', views.constant, name='constant'),
-    path('constant/list/', views.list_constant, name='constant_list'),
-    path('constant/save/', views.save_constant, name='constant_save'),
-    path('constant/del/', views.del_constant, name='constant_del'),
-    path('constant/sel/', views.sel_constant, name='constant_sel'),
-
+    path('constant/<int:id>/', views.constant, name='constant'),
     path('rider/', views.rider, name='rider'),
-    path('rider/list/', views.list_rider, name='rider_list'),
-    path('rider/save/', views.save_rider, name='rider_save'),
-    path('rider/del/', views.del_rider, name='rider_del'),
-    path('rider/sel/', views.sel_rider, name='rider_sel'),
-
+    path('rider/<int:id>/', views.rider, name='rider'),
     path('strategy/', views.strategy, name='strategy'),
     path('strategy/<int:id>/', views.strategy, name='strategy'),
-    
     path('result/<int:result_id>/', views.result, name='result'),
 
 ]

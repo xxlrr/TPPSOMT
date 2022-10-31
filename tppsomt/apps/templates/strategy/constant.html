@@ -13,115 +13,104 @@
 
   <div class="card shadow-lg mx-sm-7 my-6">
     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-      <!-- <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
-        <h3 class="text-white text-primary mb-0">Contact us</h3>
-      </div> -->
-      <!-- <div id="constant-list" class="dropdown">
-        <button class="btn bg-gradient-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-          Create a new
-        </button>
-        <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownMenuButton">
-          <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
-          <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
-          <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
-        </ul>
-      </div> -->
-      <!-- <div class="bg-gradient-primary"> -->
       <select id="constant-list" class="btn btn-lg bg-gradient-primary text-start option-white" aria-expanded="false">
         <option>Create a new</option>
+        {% for c in constant_list %}
+          <option value="{{ c.id }}" {% if c.id == constant.id %}" selected "{% endif %}>{{ c.name }}</option>
+        {% endfor %}
       </select>
-    <!-- </div> -->
     </div>
     <div class="card-body">
       <!-- <p class="pb-3">
         For calculation, please input some constants.
       </p> -->
-      <form id="constant-form" autocomplete="off">
+      <form id="constant-form" method="post" autocomplete="off">
+        {% csrf_token %}
         <div class="card-body p-0 my-3">
           <div class="row">
             <div class="col-md-3 ps-md-2">
               <div class="input-group input-group-static mb-4">
                 <label>dt</label>
-                <input id="dt" name="dt" type="text" class="form-control" placeholder="0.000">
+                <input id="dt" name="dt" value="{{ constant.dt|default:'' }}"  type="text" class="form-control" placeholder="0.000">
                 <span class="input-group-text text-xs text-muted">sec</span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>v0</label>
-                <input id="v0" name="v0" type="text" class="form-control" placeholder="0.0">
+                <input id="v0" name="v0" value="{{ constant.v0|default:'' }}" type="text" class="form-control" placeholder="0.0">
                 <span class="input-group-text text-xs text-muted">m/sec</span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>hl length</label>
-                <input id="hl_length" name="hl_length" type="text" class="form-control" placeholder="0.00">
+                <input id="hl_length" name="hl_length" value="{{ constant.hl_length|default:'' }}" type="text" class="form-control" placeholder="0.00">
                 <span class="input-group-text text-xs text-muted">m</span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>rho</label>
-                <input id="rho" name="rho" type="text" class="form-control" placeholder="0.000">
+                <input id="rho" name="rho"  value="{{ constant.rho|default:'' }}"  type="text" class="form-control" placeholder="0.000">
                 <span class="input-group-text text-xs text-muted">kg/m^3</span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>bike length</label>
-                <input id="bike_length" name="bike_length" type="text" class="form-control" placeholder="0.00">
+                <input id="bike_length" name="bike_length" value="{{ constant.bike_length|default:'' }}"  type="text" class="form-control" placeholder="0.00">
                 <span class="input-group-text text-xs text-muted">m</span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>spacing</label>
-                <input id="spacing" name="spacing" type="text" class="form-control" placeholder="0.00">
+                <input id="spacing" name="spacing" value="{{ constant.spacing|default:'' }}"  type="text" class="form-control" placeholder="0.00">
                 <span class="input-group-text text-xs text-muted">m</span>
               </div>
             </div>
             <div class="col-md-3 ps-md-2">
               <div class="input-group input-group-static mb-4">
                 <label>weight dist fr-rr</label>
-                <input id="weight" name="weight" type="text" class="form-control" placeholder="0.00">
+                <input id="weight" name="weight" value="{{ constant.weight|default:'' }}"  type="text" class="form-control" placeholder="0.00">
                 <span class="input-group-text text-xs text-muted">%</span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>crr front</label>
-                <input id="crr_front" name="crr_front" type="text" class="form-control" placeholder="0.0000">
+                <input id="crr_front" name="crr_front" value="{{ constant.crr_front|default:'' }}"  type="text" class="form-control" placeholder="0.0000">
                 <span class="input-group-text text-xs text-muted"></span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>crr rear</label>
-                <input id="crr_rear" name="crr_rear" type="text" class="form-control" placeholder="0.0000">
+                <input id="crr_rear" name="crr_rear" value="{{ constant.crr_rear|default:'' }}"  type="text" class="form-control" placeholder="0.0000">
                 <span class="input-group-text text-xs text-muted"></span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>mu-scrub</label>
-                <input id="mu_scrub" name="mu_scrub" type="text" class="form-control" placeholder="0.0000">
+                <input id="mu_scrub" name="mu_scrub" value="{{ constant.mu_scrub|default:'' }}"  type="text" class="form-control" placeholder="0.0000">
                 <span class="input-group-text text-xs text-muted"></span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>efficiency</label>
-                <input id="efficiency" name="efficiency" type="text" class="form-control" placeholder="0">
+                <input id="efficiency" name="efficiency" value="{{ constant.efficiency|default:'' }}"  type="text" class="form-control" placeholder="0">
                 <span class="input-group-text text-xs text-muted">%</span>
               </div>
             </div>
             <div class="col-md-3 ps-md-2">
               <div class="input-group input-group-static mb-4">
                 <label>mol who front</label>
-                <input id="front_mol" name="front_mol" type="text" class="form-control" placeholder="0.00">
+                <input id="front_mol" name="front_mol" value="{{ constant.front_mol|default:'' }}"  type="text" class="form-control" placeholder="0.00">
                 <span class="input-group-text text-xs text-muted">kg·m^2</span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>mol who rear</label>
-                <input id="rear_mol" name="rear_mol" type="text" class="form-control" placeholder="0.00">
+                <input id="rear_mol" name="rear_mol" value="{{ constant.rear_mol|default:'' }}"  type="text" class="form-control" placeholder="0.00">
                 <span class="input-group-text text-xs text-muted">kg·m^2</span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>wheel radius</label>
-                <input id="wheel_radius" name="wheel_radius" type="text" class="form-control" placeholder="0.000">
+                <input id="wheel_radius" name="wheel_radius" value="{{ constant.wheel_radius|default:'' }}"  type="text" class="form-control" placeholder="0.000">
                 <span class="input-group-text text-xs text-muted">m</span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>time standing</label>
-                <input id="time_standing" name="time_standing" type="text" class="form-control" placeholder="0">
+                <input id="time_standing" name="time_standing" value="{{ constant.time_standing|default:'' }}"  type="text" class="form-control" placeholder="0">
                 <span class="input-group-text text-xs text-muted">sec</span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>track geo</label>
-                <select class="form-control" id="track_geo" name="track_geo">
+                <select class="form-control" id="track_geo" name="track_geo" value="{{ constant.track_geo|default:'BRI' }}" >
                   <option value="BRI">BRI</option>
                 </select>
               </div>
@@ -129,46 +118,45 @@
             <div class="col-md-3 ps-md-2">
               <div class="input-group input-group-static mb-4">
                 <label>dist from black line</label>
-                <input id="distance" name="distance" type="text" class="form-control" placeholder="0.0">
+                <input id="distance" name="distance" value="{{ constant.distance|default:'' }}"  type="text" class="form-control" placeholder="0.0">
                 <span class="input-group-text text-xs text-muted">m</span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>lap 1 profile</label>
-                <select class="form-control" id="lap1_profile" name="lap1_profile">
+                <select class="form-control" id="lap1_profile" name="lap1_profile" value="{{ constant.v0|default:'Male' }}" >
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                 </select>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>reaction time</label>
-                <input id="reaction" name="reaction" type="text" class="form-control" placeholder="0.00">
+                <input id="reaction" name="reaction" value="{{ constant.reaction|default:'' }}"  type="text" class="form-control" placeholder="0.00">
                 <span class="input-group-text text-xs text-muted">sec</span>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>2nd team</label>
-                <select class="form-control" id="team_2nd" name="team_2nd">
+                <select class="form-control" id="team_2nd" name="team_2nd" value="{{ constant.team_2nd|default:'true' }}" >
                   <option value="true">True</option>
                   <option value="false">False</option>
                 </select>
               </div>
               <div class="input-group input-group-static mb-4">
                 <label>p1 cda scaling</label>
-                <input id="p1_cda" name="p1_cda" type="text" class="form-control" placeholder="0.0000">
+                <input id="p1_cda" name="p1_cda" type="text" value="{{ constant.p1_cda|default:'' }}"  class="form-control" placeholder="0.0000">
                 <span class="input-group-text text-xs text-muted"></span>
               </div>
             </div>
           </div>
           <div class="row d-flex justify-content-end">
             <div class="col-md-2 ps-md-2">
-              <div class="input-group input-group-outline mt-3 mb-0">
+              <div class="input-group input-group-outline is-filled mt-3 mb-0">
                 <label class="form-label">constant name</label>
-                <input id="name" name="name" type="text" class="form-control">
+                <input id="name" name="name" value="{{ constant.name|default:'' }}"  type="text" class="form-control">
               </div>
             </div>
-            <input id="id" name="id" type="hidden" class="form-control">
             <div class="col-md-3 ps-md-2">
-              <button id="continue" type="button" class="btn bg-gradient-primary mt-3 mb-0">Go on</button>
-              <button id="delete" type="button" class="btn bg-gradient-light mt-3 mb-0">Delete</button>
+              <button id="continue" name="action" value="save" type="submit" class="btn bg-gradient-primary mt-3 mb-0">Save</button>
+              <button id="delete" name="action" value="delete" type="cancel" class="btn bg-gradient-light mt-3 mb-0">Delete</button>
             </div>
           </div>
         </div>
@@ -180,101 +168,9 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-
-<!-- listen event -->
 <script>
-
-  $("#continue").click(function(){
-    var constant_form = document.getElementById("constant-form");
-    var data = Object.fromEntries(new FormData(constant_form).entries());
-    if (!data['name']) {
-      alert("Please input a contant name!");
-      return;
-    }
-
-    data['csrfmiddlewaretoken'] = '{{ csrf_token }}'
-    $.ajax({
-      type: 'post',
-      url: "{% url 'strategy:constant_save' %}",
-      dataType: 'json',
-      data: data,
-      success: () => {sessionStorage.constant_name = data['name']},
-      error: () => {alert("failed to save the constant, please try again later!")}
-    });
-  });
-
-  $("#delete").click(function(){
-    var name = $("#constant-list").val();
-    if (name !== 'create')
-    {
-      $.ajax({
-        type: 'post',
-        url: "{% url 'strategy:constant_del' %}",
-        dataType: 'json',
-        data: {
-          csrfmiddlewaretoken: '{{ csrf_token }}',
-          name: name
-        }
-      });
-      window.location.reload();
-    }
-  });
-
   $("#constant-list").change(function(){
-    var name = $("#constant-list").val();
-    if(name === 'create') {
-      document.getElementById("constant-form").reset();
-      $("#id").val("");
-    } else {
-      $.ajax({
-        type: 'post',
-        url: "{% url 'strategy:constant_sel' %}",
-        dataType: 'json',
-        data: {
-          csrfmiddlewaretoken: '{{ csrf_token }}',
-          name: name
-        },
-        success: (detail) => {
-          for (var key in detail) {
-            $("#"+key).val(String(detail[key]));
-            $("#name").closest(".input-group-outline").addClass("is-filled");
-          }
-        },
-        error: () => {
-          alert("Sorry, load failed. The page will reload!");
-          window.location.reload();
-        }
-      });
-    }
+    window.location = "{% url 'strategy:constant' %}" + (this.value ? this.value + "/" : "")
   })
-
 </script>
-
-<!-- Some action when the page loads -->
-<script>
-  var constant_list = document.getElementById("constant-list");
-  $.ajax({
-      type: 'post',
-      url: "{% url 'strategy:constant_list' %}",
-      dataType : 'json',
-      data: {
-        csrfmiddlewaretoken: '{{ csrf_token }}'
-      },
-      success: function (response) {
-        $(constant_list).empty();
-        $(constant_list).append("<option value='create'>Create a new</option>");
-        if (response.names.length > 0)
-        {
-          $(constant_list).append("<option disabled>──────────</option>")
-          response.names.forEach(element => {
-            $(constant_list).append("<option value=" + element + ">" + element + "</option>");
-          });
-        }
-      },
-      error: function (response) {
-        alert("Failed to update constant list, please refresh the page or try again later!");
-      }
-    });
-</script>
-
 {% endblock javascripts %}

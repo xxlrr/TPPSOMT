@@ -8,72 +8,53 @@ from .models import Constant, Rider, Strategy, Result
 
 
 @login_required(login_url="/login/")
-def constant(request):
-    return render(request, "strategy/constant.html", {})
-
-@login_required(login_url="/login/")
-def list_constant(request):
-    names = Constant.objects.filter(owner=request.user).values_list('name', flat=True)
-    data = {
-        'names': list(names)
-    }
-    return JsonResponse(data)
-
-@login_required(login_url="/login/")
-def save_constant(request):
-    form = request.POST.dict()
-    form.pop('csrfmiddlewaretoken', None)
-    id = form.pop('id')
-    if not id:
-        Constant.objects.create(owner=request.user, **form)
-    else:
-        Constant.objects.filter(id=id).update(**form)
-    return JsonResponse({})
-
-@login_required(login_url="/login/")
-def del_constant(request):
-    name = request.POST.get('name')
-    Constant.objects.filter(owner=request.user, name=name).delete()
-    return JsonResponse({})
-
-@login_required(login_url="/login/")
-def sel_constant(request):
-    name = request.POST.get('name')
-    detail = Constant.objects.get(owner=request.user, name=name)
-    return JsonResponse(model_to_dict(detail))
+def constant(request, id=None):
+    if request.method == "GET":
+        constant_list = Constant.objects.filter(owner=request.user).values('id', 'name')
+        constant = Constant.objects.get(pk=id, owner=request.user) if id else {}
+        context = {
+            "constant_list": constant_list,
+            "constant": constant,
+        }
+        return render(request, "strategy/constant.html", context=context)
+    elif request.method == "POST":
+        form = request.POST.dict()
+        form.pop('csrfmiddlewaretoken')
+        form = {k: v or None for k, v in form.items()}
+        action = form.pop('action')
+        if action == 'save':
+            if id:
+                Constant.objects.filter(pk=id, owner=request.user).update(**form)
+            else:
+                Constant.objects.create(owner=request.user, **form)
+        elif action == 'delete' and id:
+            Constant.objects.filter(pk=id, owner=request.user).delete()
+        return redirect(reverse('strategy:constant'))
 
 
 @login_required(login_url="/login/")
-def rider(request):
-    return render(request, "strategy/rider.html", {})
-
-@login_required(login_url="/login/")
-def list_rider(request):
-    riders = Rider.objects.filter(owner=request.user).values('id', 'profile')
-    return JsonResponse({'riders': list(riders)})
-
-@login_required(login_url="/login/")
-def save_rider(request):
-    form = request.POST.dict()
-    form.pop('csrfmiddlewaretoken', None)
-    id = form.pop('id')
-    if not id:
-        Rider.objects.create(owner=request.user, **form)
-    else:
-        Rider.objects.filter(id=id).update(**form)
-    return JsonResponse({})
-
-@login_required(login_url="/login/")
-def del_rider(request):
-    id = request.POST.get('id')
-    Rider.objects.filter(pk=id).delete()
-    return JsonResponse({})
-
-@login_required(login_url="/login/")
-def sel_rider(request):
-    id = request.POST.get('id')
-    detail = Rider.objects.get(pk=id)
-    return JsonResponse(model_to_dict(detail))
+def rider(request, id=None):
+    if request.method == "GET":
+        rider_list = Rider.objects.filter(owner=request.user).values('id', 'profile')
+        rider = Rider.objects.get(pk=id, owner=request.user) if id else {}
+        context = {
+            "rider_list": rider_list,
+            "rider": rider,
+        }
+        return render(request, "strategy/rider.html", context=context)
+    elif request.method == "POST":
+        form = request.POST.dict()
+        form.pop('csrfmiddlewaretoken')
+        form = {k: v or None for k, v in form.items()}
+        action = form.pop('action')
+        if action == 'save':
+            if id:
+                Rider.objects.filter(pk=id, owner=request.user).update(**form)
+            else:
+                Rider.objects.create(owner=request.user, **form)
+        elif action == 'delete' and id:
+            Rider.objects.filter(pk=id, owner=request.user).delete()
+        return redirect(reverse('strategy:rider'))
 
 
 @login_required(login_url="/login/")
