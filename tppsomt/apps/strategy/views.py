@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import JsonResponse
-from django.core import serializers
 from django.forms.models import model_to_dict
 from django.contrib.auth.decorators import login_required
-from .models import Constant, Rider
+from .models import Constant, Rider, Strategy
 
 
 @login_required(login_url="/login/")
@@ -77,8 +77,36 @@ def sel_rider(request):
 
 
 @login_required(login_url="/login/")
-def strategy(request):
-    return render(request, "strategy/strategy.html", {})
+def strategy(request, id=None):
+    if request.method == "GET":
+        rider_list = Rider.objects.filter(owner=request.user).values('id', 'profile')
+        strategy_list = Strategy.objects.filter(owner=request.user).values('id', 'name')
+        constant_list = Constant.objects.filter(owner=request.user).values('id', 'name')
+        strategy = Strategy.objects.get(pk=id, owner=request.user) if id else {}
+        context = {
+            "rider_list": rider_list,
+            "strategy_list": strategy_list,
+            "constant_list": constant_list,
+            "strategy": strategy,
+        }
+        return render(request, "strategy/strategy.html", context=context)
+    elif request.method == "POST":
+        form = request.POST.dict()
+        form.pop('csrfmiddlewaretoken')
+        form = {k: v or None for k, v in form.items()}
+        action = form.pop('action')
+        if action == 'save':
+            foreign = {}
+            for k, M in Strategy.foreign_fields.items():
+                foreign_id = form.pop(k)
+                foreign[k] = (M.objects.get(pk=foreign_id) if foreign_id else None)
+            if id:
+                Strategy.objects.filter(pk=id, owner=request.user).update(**form, **foreign)
+            else:
+                Strategy.objects.create(owner=request.user, **form, **foreign)
+        elif action == 'delete' and id:
+            Strategy.objects.filter(pk=id, owner=request.user).delete()
+        return redirect(reverse('strategy:strategy'))
 
 
 @login_required(login_url="/login/")

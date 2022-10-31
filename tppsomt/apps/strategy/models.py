@@ -1,4 +1,3 @@
-from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -52,3 +51,55 @@ class Rider(models.Model):
     
     def __str__(self):
         return self.profile
+
+class Strategy(models.Model):
+    foreign_fields = {"rider1":Rider, "rider2":Rider, "rider3":Rider, "rider4":Rider, "rider5":Rider, "constant":Constant}
+    
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=16)
+    constant = models.ForeignKey(Constant, on_delete=models.SET_NULL, blank=True, null=True)
+
+    rider1 = models.ForeignKey(Rider, related_name="rider1", on_delete=models.SET_NULL, blank=True, null=True)
+    rider2 = models.ForeignKey(Rider, related_name="rider2", on_delete=models.SET_NULL, blank=True, null=True)
+    rider3 = models.ForeignKey(Rider, related_name="rider3", on_delete=models.SET_NULL, blank=True, null=True)
+    rider4 = models.ForeignKey(Rider, related_name="rider4", on_delete=models.SET_NULL, blank=True, null=True)
+    rider5 = models.ForeignKey(Rider, related_name="rider5", on_delete=models.SET_NULL, blank=True, null=True)
+
+    turn1_1 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn1_2 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn1_3 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn1_4 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn1_5 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+    turn2_1 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn2_2 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn2_3 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn2_4 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn2_5 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+    turn3_1 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn3_2 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn3_3 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn3_4 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn3_5 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+    turn4_1 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn4_2 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn4_3 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn4_4 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn4_5 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+    turn5_1 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn5_2 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn5_3 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn5_4 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    turn5_5 = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["owner", "name"]),
+        ]
+    
+    def __str__(self):
+        return self.name

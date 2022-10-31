@@ -4,8 +4,9 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from django.contrib import admin
-from apps.strategy.models import Constant, Rider
+from .models import Constant, Rider, Strategy
 
 # Register your models here.
 admin.site.register(Constant)
 admin.site.register(Rider)
+admin.site.register(Strategy)

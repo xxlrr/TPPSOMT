@@ -23,6 +23,8 @@ urlpatterns = [
     path('rider/sel/', views.sel_rider, name='rider_sel'),
 
     path('strategy/', views.strategy, name='strategy'),
+    path('strategy/<int:id>/', views.strategy, name='strategy'),
+    
     path('result/', views.result, name='result'),
 
 ]
