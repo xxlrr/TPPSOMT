@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.core import serializers
@@ -24,7 +23,11 @@ def list_constant(request):
 def save_constant(request):
     form = request.POST.dict()
     form.pop('csrfmiddlewaretoken', None)
-    Constant.objects.update_or_create(form, owner=request.user, name=form['name'])
+    id = form.pop('id')
+    if not id:
+        Constant.objects.create(owner=request.user, **form)
+    else:
+        Constant.objects.filter(id=id).update(**form)
     return JsonResponse({})
 
 @login_required(login_url="/login/")
@@ -53,14 +56,17 @@ def list_rider(request):
 def save_rider(request):
     form = request.POST.dict()
     form.pop('csrfmiddlewaretoken', None)
-    id = form.pop('id', None)
-    Rider.objects.update_or_create(form, id=id)
+    id = form.pop('id')
+    if not id:
+        Rider.objects.create(owner=request.user, **form)
+    else:
+        Rider.objects.filter(id=id).update(**form)
     return JsonResponse({})
 
 @login_required(login_url="/login/")
 def del_rider(request):
-    profile = request.POST.get('profile')
-    Rider.objects.filter(owner=request.user, profile=profile).delete()
+    id = request.POST.get('id')
+    Rider.objects.filter(pk=id).delete()
     return JsonResponse({})
 
 @login_required(login_url="/login/")

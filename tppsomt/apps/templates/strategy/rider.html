@@ -100,6 +100,7 @@
             <div class="row">
               <div class="col-md-6 text-end ms-auto">
                 <button id="save" type="button" class="btn bg-gradient-info mb-0">Svae</button>
+                <button id="delete" type="button" class="btn bg-gradient-light mb-0">Delete</button>
               </div>
             </div>
           </div>
@@ -130,17 +131,17 @@
         var els = parent.getElementsByTagName("select");
         for (var el of els) {
           var old_val = $(el).val()
-          console.log(old_val);
           $(el).empty();
           $(el).append("<option value='create'>&lt;new rider&gt;</option>");
           if (response.riders.length > 0)
           {
             $(el).append("<option disabled>──────────</option>")
             response.riders.forEach(rider => {
-              $(el).append("<option value=" + rider.id + ">" + rider.profile + "</option>");
+              $(el).append("<option value=" + rider.id
+                + (rider.id == old_val ? " selected" : "")
+                + ">" + rider.profile + "</option>");
             });
           }
-          $(el).val(old_val);
         }
       },
       error: function (response) {
@@ -149,33 +150,27 @@
     });
   }
 
-  // fill the rider form
-  function fill_rider_form(el, id)
-  {
-    $.ajax({
-      type: 'post',
-      url: "{% url 'strategy:rider_sel' %}",
-      dataType: 'json',
-      data: {
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        id: id
-      },
-      success: (detail) => {
-        for (var key in detail) {
-          $("#"+key).val(String(detail[key]));
-        }
-      },
-      error: () => {
-        alert("Sorry, load failed. The page will reload!");
-        window.location.reload();
-      }
-    });
-  }
+</script>
 
-  // save the rider form
-  function save_rider(form)
-  {
-    const data = Object.fromEntries(new FormData(form).entries());
+<!-- listen event -->
+<script>
+  $("#continue").click(function(){
+    var rider_list = $("#rider-form select");
+
+    var seleted = rider_list.filter((_, e) => {return e.value !== 'create'});
+    if(seleted.length < 4) {
+      alert("Please select at least 4 riders!");
+      return;
+    }
+
+    rider_list.each((_, e) => { sessionStorage[e.name] = (e.value !== 'create' ? e.value : null)});
+  });
+
+  $("#save").click(function(){
+    // save_rider(document.getElementById("detail-form"));
+    var form = document.getElementById("detail-form");
+    var data = Object.fromEntries(new FormData(form).entries());
+
     data['csrfmiddlewaretoken'] = '{{ csrf_token }}'
     $.ajax({
       type: 'post',
@@ -186,39 +181,65 @@
         load_rider_list(document.getElementById("rider-form"));
         alert("The rider have been saved successfully!");
         form.reset();
+        $("#id").val("");
       },
       error: () => {alert("Failed to save the rider, please try again later!")}
     });
-  }
-</script>
+  });
 
-<!-- listen event -->
-<script>
+  
+  $("#delete").click(function(){
+    var id = $("#id").val();
+    if (!id){
+      return;
+    }
 
-  $("continue").click(function(){
-    $("#rider-form select").each((_, e) => {
-      if (e.value !== 'create') {
-        sessionStorage[e.name] = e.value;
-      } else {
-        delete sessionStorage[e.name];
+    $.ajax({
+      type: 'post',
+      url: "{% url 'strategy:rider_del' %}",
+      dataType: 'json',
+      data: {
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        id: id
+      },
+      success: () => {
+        load_rider_list(document.getElementById("rider-form"));
+        document.getElementById("detail-form").reset();
+        $("#id").val("");
       }
     });
-  })
-
-  $("#save").click(function(){
-    save_rider(document.getElementById("detail-form"));
   });
 
   $("#rider-form").on('change', 'select', (event)=>{
     var self = event.target;
-    var rider_form = document.getElementById("detail-form");
+    var detail_form = document.getElementById("detail-form");
     if(self.value == "create") {
-      rider_form.reset();
+      detail_form.reset();
+      $("#id").val("");
     } else {
       $("#rider-form select")
         .filter((_, e)=>{return e != self && e.value == self.value})
         .each((_, e) => {$(e).val("create")});
-      fill_rider_form(rider_form, self.value);
+      
+      // fill_detail_form(detail_form, self.value)
+      $.ajax({
+        type: 'post',
+        url: "{% url 'strategy:rider_sel' %}",
+        dataType: 'json',
+        data: {
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          id: self.value
+        },
+        success: (detail) => {
+          for (var key in detail) {
+            $("#"+key).val(String(detail[key]));
+          }
+        },
+        error: () => {
+          alert("Sorry, load failed. The page will reload!");
+          window.location.reload();
+        }
+      });
     }
   })
 

@@ -165,8 +165,9 @@
                 <input id="name" name="name" type="text" class="form-control">
               </div>
             </div>
+            <input id="id" name="id" type="hidden" class="form-control">
             <div class="col-md-3 ps-md-2">
-              <button id="save" type="button" class="btn bg-gradient-primary mt-3 mb-0">Save</button>
+              <button id="continue" type="button" class="btn bg-gradient-primary mt-3 mb-0">Go on</button>
               <button id="delete" type="button" class="btn bg-gradient-light mt-3 mb-0">Delete</button>
             </div>
           </div>
@@ -180,65 +181,18 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 
-<!-- Some functions -->
+<!-- listen event -->
 <script>
 
-  // reload a contant list to a select element (el).
-  function load_constant_list(el){
-    $.ajax({
-      type: 'post',
-      url: "{% url 'strategy:constant_list' %}",
-      dataType : 'json',
-      data: {
-        csrfmiddlewaretoken: '{{ csrf_token }}'
-      },
-      success: function (response) {
-        $(el).empty();
-        $(el).append("<option value='create'>Create a new</option>");
-        if (response.names.length > 0)
-        {
-          $(el).append("<option disabled>──────────</option>")
-          response.names.forEach(element => {
-            $(el).append("<option value=" + element + ">" + element + "</option>");
-          });
-        }
-      },
-      error: function (response) {
-        alert("failed to update constant list, please refresh the page or try again later!");
-      }
-    });
-  }
+  $("#continue").click(function(){
+    var constant_form = document.getElementById("constant-form");
+    var data = Object.fromEntries(new FormData(constant_form).entries());
+    if (!data['name']) {
+      alert("Please input a contant name!");
+      return;
+    }
 
-  // fill the constant form
-  function fill_constant_form(el, name)
-  {
-    $.ajax({
-      type: 'post',
-      url: "{% url 'strategy:constant_sel' %}",
-      dataType: 'json',
-      data: {
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        name: name
-      },
-      success: (detail) => {
-        for (var key in detail) {
-          $("#"+key).val(String(detail[key]));
-          $("#name").closest(".input-group-outline").addClass("is-filled");
-        }
-      },
-      error: () => {
-        alert("Sorry, load failed. The page will reload!");
-        window.location.reload();
-      }
-    });
-  }
-
-  // save the constant form
-  function save_constant(el)
-  {
-    const data = Object.fromEntries(new FormData(el).entries());
     data['csrfmiddlewaretoken'] = '{{ csrf_token }}'
-
     $.ajax({
       type: 'post',
       url: "{% url 'strategy:constant_save' %}",
@@ -247,35 +201,21 @@
       success: () => {sessionStorage.constant_name = data['name']},
       error: () => {alert("failed to save the constant, please try again later!")}
     });
-  }
-
-  // delete the constant
-  function delete_constant(name)
-  {
-    $.ajax({
-      type: 'post',
-      url: "{% url 'strategy:constant_del' %}",
-      dataType: 'json',
-      data: {
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        name: name
-      }
-    });
-  }
-</script>
-
-<!-- listen event -->
-<script>
-
-  $("#save").click(function(){
-    save_constant(document.getElementById("constant-form"));
   });
 
   $("#delete").click(function(){
     var name = $("#constant-list").val();
     if (name !== 'create')
     {
-      delete_constant($("#constant-list").val());
+      $.ajax({
+        type: 'post',
+        url: "{% url 'strategy:constant_del' %}",
+        dataType: 'json',
+        data: {
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          name: name
+        }
+      });
       window.location.reload();
     }
   });
@@ -284,8 +224,27 @@
     var name = $("#constant-list").val();
     if(name === 'create') {
       document.getElementById("constant-form").reset();
+      $("#id").val("");
     } else {
-      fill_constant_form(document.getElementById("constant-form"), name);
+      $.ajax({
+        type: 'post',
+        url: "{% url 'strategy:constant_sel' %}",
+        dataType: 'json',
+        data: {
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          name: name
+        },
+        success: (detail) => {
+          for (var key in detail) {
+            $("#"+key).val(String(detail[key]));
+            $("#name").closest(".input-group-outline").addClass("is-filled");
+          }
+        },
+        error: () => {
+          alert("Sorry, load failed. The page will reload!");
+          window.location.reload();
+        }
+      });
     }
   })
 
@@ -293,7 +252,29 @@
 
 <!-- Some action when the page loads -->
 <script>
-  load_constant_list(document.getElementById("constant-list"));
+  var constant_list = document.getElementById("constant-list");
+  $.ajax({
+      type: 'post',
+      url: "{% url 'strategy:constant_list' %}",
+      dataType : 'json',
+      data: {
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (response) {
+        $(constant_list).empty();
+        $(constant_list).append("<option value='create'>Create a new</option>");
+        if (response.names.length > 0)
+        {
+          $(constant_list).append("<option disabled>──────────</option>")
+          response.names.forEach(element => {
+            $(constant_list).append("<option value=" + element + ">" + element + "</option>");
+          });
+        }
+      },
+      error: function (response) {
+        alert("Failed to update constant list, please refresh the page or try again later!");
+      }
+    });
 </script>
 
 {% endblock javascripts %}
