@@ -1,13 +1,26 @@
 # -*- encoding: utf-8 -*-
-from django.shortcuts import render, redirect
+from functools import wraps
 from django.urls import reverse
-from django.http import JsonResponse
-from django.forms.models import model_to_dict
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+
+from core.settings import DEBUG
 from .models import Constant, Rider, Strategy, Result
 
 
+
+def handle_exception(func):
+    @wraps(func)
+    def handle(request, *args, **kwargs):
+        try:
+            return func(request, *args, **kwargs)
+        except Exception as e:
+            return render(request, "strategy/exception.html", {"debug": DEBUG , "exception": e})
+    return handle
+
+
 @login_required(login_url="/login/")
+@handle_exception
 def constant(request, id=None):
     if request.method == "GET":
         constant_list = Constant.objects.filter(owner=request.user).values('id', 'name')
@@ -33,6 +46,7 @@ def constant(request, id=None):
 
 
 @login_required(login_url="/login/")
+@handle_exception
 def rider(request, id=None):
     if request.method == "GET":
         rider_list = Rider.objects.filter(owner=request.user).values('id', 'profile')
@@ -58,6 +72,7 @@ def rider(request, id=None):
 
 
 @login_required(login_url="/login/")
+@handle_exception
 def strategy(request, id=None):
     if request.method == "GET":
         rider_list = Rider.objects.filter(owner=request.user).values('id', 'profile')
