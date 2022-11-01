@@ -19,8 +19,9 @@ The purpose of the project is to present complex data such as athlete body data,
 - Run the project
     1. `cd CYCIN-mel`  
     2. `source .venv/bin/activate`  
-    3. `python3 tppsomt/manage.py migrate`
-    4. `python3 tppsomt/manage.py runserver 0:8000`  
+    3. `python3 tppsomt/manage.py makemigrations`
+    4. `python3 tppsomt/manage.py migrate`
+    5. `python3 tppsomt/manage.py runserver 0:8000`  
 - Visit the website  
     1. Open your chrome  
     2. Visit the website: http://127.0.0.1:8000  
