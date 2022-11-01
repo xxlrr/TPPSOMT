@@ -156,7 +156,7 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 <script>
-  $("#turn1, #turn2, #turn3, #turn4, #trun5").on("change", "input", (event)=>{
+  function update_laps() {
     var sum = 0;
     $("#turn1, #turn2, #turn3, #turn4, #trun5").find("input").each((_, e) => {
       var val = parseFloat(e.value);
@@ -165,7 +165,9 @@
       }
     })
     $("#laps").text(sum.toFixed(2));
-  })
+  }
+  $("#turn1, #turn2, #turn3, #turn4, #trun5").on("change", "input", update_laps);
+  update_laps();
 
   $("#rider-list").on('change', 'select', (event)=>{
     var self = event.target;
