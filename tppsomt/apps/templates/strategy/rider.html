@@ -41,19 +41,31 @@
           </div>
           <div class="card-body pt-1">
             <div class="row">
-              <div class="col-md-12 pe-2 mb-3">
+              <div class="col-md-6 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>Rider Profile</label>
                   <input id="profile" name="profile" value="{{ rider.profile|default:'' }}" type="text" class="form-control" placeholder="eg. Tim">
                 </div>
               </div>
-              <div class="col-md-12 pe-2 mb-3">
+              <div class="col-md-6 pe-2 mb-3">
+                <div class="input-group input-group-static mb-4">
+                  <label>Mass</label>
+                  <input id="mass" name="mass" value="{{ rider.mass|default:'' }}" type="text" class="form-control" placeholder="00">
+                </div>
+              </div>
+              <div class="col-md-6 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>CDA Seated</label>
                   <input id="cda_seated" name="cda_seated" value="{{ rider.cda_seated|default:'' }}" type="text" class="form-control" placeholder="0.000">
                 </div>
               </div>
-              <div class="col-md-12 pe-2 mb-3">
+              <div class="col-md-6 pe-2 mb-3">
+                <div class="input-group input-group-static mb-4">
+                  <label>CDA Standing</label>
+                  <input id="cda_standing" name="cda_standing" value="{{ rider.cda_standing|default:'' }}" type="text" class="form-control" placeholder="0.000">
+                </div>
+              </div>
+              <div class="col-md-6 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>Seat Height from groud</label>
                   <input id="seat_height" name="seat_height" value="{{ rider.seat_height|default:'' }}" type="text" class="form-control" placeholder="0.00">
@@ -70,6 +82,24 @@
                 <div class="input-group input-group-static mb-4">
                   <label>Turn 2 power</label>
                   <input id="turn2_power" name="turn2_power" value="{{ rider.turn2_power|default:'' }}" type="text" class="form-control" placeholder="0.00">
+                </div>
+              </div>
+              <div class="col-md-6 pe-2 mb-3">
+                <div class="input-group input-group-static mb-4">
+                  <label>Turn 3 power</label>
+                  <input id="turn3_power" name="turn3_power" value="{{ rider.turn3_power|default:'' }}" type="text" class="form-control" placeholder="0.00">
+                </div>
+              </div>
+              <div class="col-md-6 pe-2 mb-3">
+                <div class="input-group input-group-static mb-4">
+                  <label>Turn 4 power</label>
+                  <input id="turn4_power" name="turn4_power" value="{{ rider.turn4_power|default:'' }}" type="text" class="form-control" placeholder="0.00">
+                </div>
+              </div>
+              <div class="col-md-6 pe-2 mb-3">
+                <div class="input-group input-group-static mb-4">
+                  <label>Turn 5 power</label>
+                  <input id="turn5_power" name="turn5_power" value="{{ rider.turn5_power|default:'' }}" type="text" class="form-control" placeholder="0.00">
                 </div>
               </div>
             </div>

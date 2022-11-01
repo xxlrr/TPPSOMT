@@ -40,10 +40,15 @@ class Constant(models.Model):
 class Rider(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     profile = models.CharField("Rider Profile", max_length=16)
-    cda_seated = models.CharField("CDA Seated", max_length=16, default="0.000", blank=True, null=True)
+    mass = models.CharField("Mass", max_length=16, default="00.0", blank=True, null=True)
+    cda_seated = models.CharField("CDA Seated", max_length=16, default="0.00", blank=True, null=True)
+    cda_standing = models.CharField("CDA Standing", max_length=16, default="0.00", blank=True, null=True)
     seat_height = models.CharField("Seat Height from groud", max_length=16, default="0.00", blank=True, null=True)
     turn1_power = models.CharField("Turn 1 power", max_length=16, default="0.00", blank=True, null=True)
     turn2_power = models.CharField("Turn 2 power", max_length=16, default="0.00", blank=True, null=True)
+    turn3_power = models.CharField("Turn 3 power", max_length=16, default="0.00", blank=True, null=True)
+    turn4_power = models.CharField("Turn 4 power", max_length=16, default="0.00", blank=True, null=True)
+    turn5_power = models.CharField("Turn 5 power", max_length=16, default="0.00", blank=True, null=True)
 
     class Meta:
         indexes = [
