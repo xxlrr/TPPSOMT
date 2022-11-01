@@ -42,8 +42,8 @@ class Rider(models.Model):
     profile = models.CharField("Rider Profile", max_length=16)
     cda_seated = models.CharField("CDA Seated", max_length=16, default="0.000", blank=True, null=True)
     seat_height = models.CharField("Seat Height from groud", max_length=16, default="0.00", blank=True, null=True)
-    trun1_power = models.CharField("Turn 1 power", max_length=16, default="0.00", blank=True, null=True)
-    trun2_power = models.CharField("Turn 2 power", max_length=16, default="0.00", blank=True, null=True)
+    turn1_power = models.CharField("Turn 1 power", max_length=16, default="0.00", blank=True, null=True)
+    turn2_power = models.CharField("Turn 2 power", max_length=16, default="0.00", blank=True, null=True)
 
     class Meta:
         indexes = [

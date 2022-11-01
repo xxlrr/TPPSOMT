@@ -109,6 +109,7 @@ def strategy(request, id=None):
 
 
 @login_required(login_url="/login/")
+@handle_exception
 def result(request, result_id):
     result = Result.objects.get(pk=result_id)
     context = {
@@ -116,3 +117,12 @@ def result(request, result_id):
         "time_chart": result.time_chart,
     }
     return render(request, "strategy/result.html", context=context)
+
+
+@login_required(login_url="/login/")
+@handle_exception
+def tour(request):
+    context = {
+        "step": "contant",
+    }
+    return render(request, "strategy/tour.html", context=context)

@@ -22,7 +22,7 @@
               <p class="text-white opacity-8 mb-4">Please  select a rider or create a new.</p>
               <div class="input-group input-group-static mb-4">
                 <select class="form-control text-white option-white" id="rider-list">
-                  <option value="create" selected>&lt;new rider&gt;</option>
+                  <option value="" selected>&lt;new rider&gt;</option>
                   {% for r in rider_list %}
                     <option value="{{ r.id }}" {% if r.id == rider.id %}" selected "{% endif %}>{{ r.profile }}</option>
                   {% endfor %}
@@ -63,13 +63,13 @@
               <div class="col-md-6 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>Turn 1 power</label>
-                  <input id="trun1_power" name="trun1_power" value="{{ rider.trun1_power|default:'' }}" type="text" class="form-control" placeholder="0.00">
+                  <input id="turn1_power" name="turn1_power" value="{{ rider.turn1_power|default:'' }}" type="text" class="form-control" placeholder="0.00">
                 </div>
               </div>
               <div class="col-md-6 pe-2 mb-3">
                 <div class="input-group input-group-static mb-4">
                   <label>Turn 2 power</label>
-                  <input id="trun2_power" name="trun2_power" value="{{ rider.trun2.power|default:'' }}" type="text" class="form-control" placeholder="0.00">
+                  <input id="turn2_power" name="turn2_power" value="{{ rider.turn2_power|default:'' }}" type="text" class="form-control" placeholder="0.00">
                 </div>
               </div>
             </div>
