@@ -22,9 +22,6 @@
             </a>
             <div class="dropdown-menu ms-n3 dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuPages5">
               <div class="d-none d-lg-block">
-                <!-- <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
-                  Landing Pages
-                </h6> -->
                 <a href="{% url 'strategy:constant' %}" class="dropdown-item border-radius-md">
                   <span>Constants</span>
                 </a>
@@ -36,9 +33,6 @@
                 </a>
               </div>
               <div class="d-lg-none">
-                <!-- <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
-                  Landing Pages
-                </h6> -->
                 <a href="{% url 'strategy:constant' %}" class="dropdown-item border-radius-md">
                   <span>Constants</span>
                 </a>
@@ -52,11 +46,11 @@
             </div>
           </li>
           {% endif %}
-          <li class="nav-item ns-lg-auto">
-            <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" 
-              href="/about-us.html">
-              <i class="material-icons opacity-6 me-2 text-md">view_day</i>
+          <li class="nav-item dropdown dropdown-hover mx-2">
+            <a href="/about-us.html" class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" aria-expanded="false">
+              <i class="material-icons opacity-6 me-2 text-md">article</i>
               About us
+              <span class="arrow ms-auto ms-md-2"></span>
             </a>
           </li>
 
