@@ -12,11 +12,10 @@ from django.urls import reverse
 
 @login_required(login_url="/login/")
 def index(request):
-    # context = {'segment': 'index'}
+    context = {}
 
-    # html_template = loader.get_template('home/index.html')
-    # return HttpResponse(html_template.render(context, request))
-    return HttpResponseRedirect('/about-us.html')
+    html_template = loader.get_template('home/index.html')
+    return HttpResponse(html_template.render(context, request))
 
 
 @login_required(login_url="/login/")
