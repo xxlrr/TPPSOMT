@@ -1,0 +1,8 @@
+INSERT INTO "strategy_constant" VALUES(7,'2','1','1','1','1','1','1','1','1','2','1','2','1','BRI','1','Male','1','true','0',1,'1','1','1');
+INSERT INTO "strategy_rider" VALUES(5,'Tim','','turn1_power','turn2_power',1,'0.00','00.0','0.00','0.00','0.00','');
+INSERT INTO "strategy_rider" VALUES(6,'Tom','','turn1_power','turn2_power',1,'0.00','00.0','0.00','0.00','0.00','');
+INSERT INTO "strategy_rider" VALUES(7,'Jack','','turn1_power','turn2_power',1,'0.00','00.0','0.00','0.00','0.00','');
+INSERT INTO "strategy_rider" VALUES(9,'Frank','1.03','1.2','1.3',1,'0.00','00.0','1.5','1.6','1.7','1.00');
+INSERT INTO "strategy_rider" VALUES(10,'Marry','','turn1_power','turn2_power',1,'0.00','00.0','0.00','0.00','0.00','');
+INSERT INTO "strategy_strategy" VALUES(8,'AAAa',1,3,NULL,NULL,NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,9,NULL,7,6,NULL,7);
+INSERT INTO "strategy_result" VALUES(1,'03:47.94','{"rider1": [{"x": 1, "y": 14.1}, {"x": 2, "y": 8.4}, {"x": 3, "y": 7.6}, {"x": 4, "y": 7.2}, {"x": 17, "y": 6.8}, {"x": 18, "y": 6.7}], "rider2": [{"x": 13, "y": 6.8}, {"x": 14, "y": 6.8}, {"x": 15, "y": 6.7}, {"x": 16, "y": 6.7}, {"x": 28, "y": 6.8}, {"x": 29, "y": 6.8}, {"x": 30, "y": 6.8}, {"x": 31, "y": 6.8}, {"x": 32, "y": 6.7}], "rider4": [{"x": 9, "y": 6.8}, {"x": 10, "y": 6.8}, {"x": 11, "y": 6.8}, {"x": 12, "y": 6.8}, {"x": 23, "y": 6.7}, {"x": 24, "y": 6.8}, {"x": 25, "y": 6.8}, {"x": 26, "y": 6.8}, {"x": 27, "y": 6.8}], "rider5": [{"x": 5, "y": 7.0}, {"x": 6, "y": 6.9}, {"x": 7, "y": 6.8}, {"x": 8, "y": 6.8}, {"x": 19, "y": 6.8}, {"x": 20, "y": 6.7}, {"x": 21, "y": 6.7}, {"x": 22, "y": 6.7}]}',8);
