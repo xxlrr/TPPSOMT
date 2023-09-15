@@ -1,6 +1,8 @@
 # TPPSOMT
 _the Team Pursuit Performance and Strategy Optimisation Modelling Tool_  
-![Index](https://github.com/xxlrr/TPPSOMT/assets/50319294/3018df1d-454c-4e0c-a2e1-13dcdc17ed01)
+
+![Index](https://github.com/xxlrr/TPPSOMT/assets/50319294/3018df1d-454c-4e0c-a2e1-13dcdc17ed01) 
+
 ## Project vision  
 In order to better help athletes train, refine daily training methods and strategies, and win cycling competitions, the team collected athletes' data for collation and analysis, providing recommendations.  
 The purpose of the project is to present complex data such as athlete body data, race data, bicycle data, etc. in a visual manner, so that users can clearly and concisely understand the data, and provide models to simulate the race.
