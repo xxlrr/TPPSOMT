@@ -31,6 +31,6 @@ The purpose of the project is to present complex data such as athlete body data,
 _This is a commercial research project. The purpose of public is to facilitate team communication. Others are not allowed to plagiarize or copy it for commercial use. Note that this project abides by the contract and **the core algorithm is removed**._
 
 ---
-@ Coded by **CYCIN-Mel**
+Django Starter provided by **[Django Material Kit](https://appseed.us/product/material-kit/django/)** | @ Coded by **CYCIN-Mel** 
 
 
