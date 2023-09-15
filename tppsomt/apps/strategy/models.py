@@ -114,7 +114,7 @@ class Strategy(models.Model):
         # some calculate ...
         # save the result to a model
         # return the result model
-        return Result.objects.get(strategy__pk=self.pk)
+        return self.result
 
 
 class Result(models.Model):

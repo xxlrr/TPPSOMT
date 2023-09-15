@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from core.settings import DEBUG
 from .models import Constant, Rider, Strategy, Result
 
 
@@ -15,22 +14,14 @@ def handle_exception(func):
         try:
             return func(request, *args, **kwargs)
         except Exception as e:
-            return render(request, "strategy/exception.html", {"debug": DEBUG , "exception": e})
+            return render(request, "strategy/exception.html", {"exception": e})
     return handle
 
 
 @login_required(login_url="/login/")
 @handle_exception
 def constant(request, id=None):
-    if request.method == "GET":
-        constant_list = Constant.objects.filter(owner=request.user).values('id', 'name')
-        constant = Constant.objects.get(pk=id, owner=request.user) if id else {}
-        context = {
-            "constant_list": constant_list,
-            "constant": constant,
-        }
-        return render(request, "strategy/constant.html", context=context)
-    elif request.method == "POST":
+    if request.method == "POST":
         form = request.POST.dict()
         form.pop('csrfmiddlewaretoken')
         form = {k: v or None for k, v in form.items()}
@@ -42,21 +33,18 @@ def constant(request, id=None):
                 Constant.objects.create(owner=request.user, **form)
         elif action == 'delete' and id:
             Constant.objects.filter(pk=id, owner=request.user).delete()
-        return redirect(reverse('strategy:constant'))
-
+    constant_list = Constant.objects.filter(owner=request.user).values('id', 'name')
+    constant = Constant.objects.get(pk=id, owner=request.user) if id else {}
+    context = {
+        "constant_list": constant_list,
+        "constant": constant,
+    }
+    return render(request, "strategy/constant.html", context=context)
 
 @login_required(login_url="/login/")
 @handle_exception
 def rider(request, id=None):
-    if request.method == "GET":
-        rider_list = Rider.objects.filter(owner=request.user).values('id', 'profile')
-        rider = Rider.objects.get(pk=id, owner=request.user) if id else {}
-        context = {
-            "rider_list": rider_list,
-            "rider": rider,
-        }
-        return render(request, "strategy/rider.html", context=context)
-    elif request.method == "POST":
+    if request.method == "POST":
         form = request.POST.dict()
         form.pop('csrfmiddlewaretoken')
         form = {k: v or None for k, v in form.items()}
@@ -68,25 +56,20 @@ def rider(request, id=None):
                 Rider.objects.create(owner=request.user, **form)
         elif action == 'delete' and id:
             Rider.objects.filter(pk=id, owner=request.user).delete()
-        return redirect(reverse('strategy:rider'))
+    
+    rider_list = Rider.objects.filter(owner=request.user).values('id', 'profile')
+    rider = Rider.objects.get(pk=id, owner=request.user) if id else {}
+    context = {
+        "rider_list": rider_list,
+        "rider": rider,
+    }
+    return render(request, "strategy/rider.html", context=context)
 
 
 @login_required(login_url="/login/")
 @handle_exception
 def strategy(request, id=None):
-    if request.method == "GET":
-        rider_list = Rider.objects.filter(owner=request.user).values('id', 'profile')
-        strategy_list = Strategy.objects.filter(owner=request.user).values('id', 'name')
-        constant_list = Constant.objects.filter(owner=request.user).values('id', 'name')
-        strategy = Strategy.objects.get(pk=id, owner=request.user) if id else {}
-        context = {
-            "rider_list": rider_list,
-            "strategy_list": strategy_list,
-            "constant_list": constant_list,
-            "strategy": strategy,
-        }
-        return render(request, "strategy/strategy.html", context=context)
-    elif request.method == "POST":
+    if request.method == "POST":
         form = request.POST.dict()
         form.pop('csrfmiddlewaretoken')
         form = {k: v or None for k, v in form.items()}
@@ -105,7 +88,18 @@ def strategy(request, id=None):
             return redirect(reverse('strategy:result', kwargs={'result_id':strategy.result.pk}))
         elif action == 'delete' and id:
             Strategy.objects.filter(pk=id, owner=request.user).delete()
-        return redirect(reverse('strategy:strategy'))
+    
+    rider_list = Rider.objects.filter(owner=request.user).values('id', 'profile')
+    strategy_list = Strategy.objects.filter(owner=request.user).values('id', 'name')
+    constant_list = Constant.objects.filter(owner=request.user).values('id', 'name')
+    strategy = Strategy.objects.get(pk=id, owner=request.user) if id else {}
+    context = {
+        "rider_list": rider_list,
+        "strategy_list": strategy_list,
+        "constant_list": constant_list,
+        "strategy": strategy,
+    }
+    return render(request, "strategy/strategy.html", context=context)
 
 
 @login_required(login_url="/login/")

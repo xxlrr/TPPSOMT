@@ -14,7 +14,7 @@
   <div class="card shadow-lg mx-sm-7 my-6">
     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
       <select id="constant-list" class="btn btn-lg bg-gradient-primary text-start option-white" aria-expanded="false">
-        <option>Create a new</option>
+        <option value="-1">Create a new</option>
         {% for c in constant_list %}
           <option value="{{ c.id }}" {% if c.id == constant.id %}" selected "{% endif %}>{{ c.name }}</option>
         {% endfor %}
@@ -170,7 +170,7 @@
 {% block javascripts %}
 <script>
   $("#constant-list").change(function(){
-    window.location = "{% url 'strategy:constant' %}" + (this.value ? this.value + "/" : "")
+    window.location = "{% url 'strategy:constant' %}" + (this.value > 0 ? this.value + "/" : "")
   })
 </script>
 {% endblock javascripts %}

@@ -26,6 +26,10 @@ The purpose of the project is to present complex data such as athlete body data,
     1. Open your chrome  
     2. Visit the website: http://127.0.0.1:8000  
     3. Bingo, enjoy!  
+
+## Attention
+_This is a commercial research project. The purpose of public is to facilitate team communication. Others are not allowed to plagiarize or copy it for commercial use. Note that this project abides by the contract and **the core algorithm is removed**._
+
 ---
 @ Coded by **CYCIN-Mel**
 
